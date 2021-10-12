@@ -1,0 +1,18 @@
+#page {
+    background-color:purple;
+
+}
+
+#gridWrapper {
+    display: flex;
+    background-color: blue;
+    height: 100px;
+    width: 100px;
+}
+
+.box {
+    width: 100px;
+    height: 100px;
+    background-color: green;
+    border: 10px solid white;
+}
