@@ -1,9 +1,16 @@
 const page = document.getElementById('page');
 const gridWrapper = document.getElementById('gridWrapper');
 const title = document.getElementById('title');
-const restart = document.getElementById('restartButton');
+const restart = document.getElementById('restartButtonBot');
+const restartOverlay = document.getElementById('restartButton');
+const overlayScreen = document.getElementById('overlayScreen');
+const overlayMessage = document.getElementById('overlayMessage')
+
+overlayScreen.onclick = hideOverlay;
 
 restart.onclick = restartGame;
+restartOverlay.onclick = restartGame;
+
 
 let gameGrid = ['','','','','','','','',''];
 let playerTurn = 'X';
@@ -20,6 +27,10 @@ let box = [];
     gridWrapper.appendChild(box[i]);
   }
 })()
+
+function hideOverlay(){
+  overlayScreen.classList.remove('show');
+}
 
 function changeColor(){
   let value = this.value;
@@ -75,8 +86,9 @@ function checkWin(gameGrid){
   
   let spaceIndex = gameGrid.indexOf('');
   if (winner==true){
+    overlayScreen.classList.add('show');
+    overlayMessage.textContent = `${playerTurn} has won!`;
     title.textContent = `${playerTurn} has won!`;
-    console.log(`${playerTurn} has won!`);
     for (i=0; i < 9; i++){
       box[i].style.cursor = 'not-allowed';
       box[i].removeEventListener('click', changeColor);
@@ -91,6 +103,8 @@ function checkWin(gameGrid){
 }
 
 function alertTie(){
+  overlayScreen.classList.add('show');
+  overlayMessage.textContent = `It's a tie!`;
   title.textContent = `It's a Tie!`;
   for (i=0; i < 9; i++){
     box[i].style.cursor = 'not-allowed';
@@ -119,6 +133,7 @@ function changePlayer(winner){
 }
 
 function restartGame(){
+  overlayScreen.classList.remove('show');
   gameGrid = ['','','','','','','','',''];
   playerTurn = 'X';
   title.textContent = "It is X's Turn";
