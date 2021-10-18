@@ -55,6 +55,11 @@
   color: white;
 }
 
+#restartButtonBot {
+  height: 50px;
+  width: 100px;
+}
+
 .box:hover {
   background-color: purple;
 }
@@ -66,7 +71,7 @@
   border: 5px solid white;
 }
 
-.overlayMessage {
+.overlayScreen {
   display: none; 
   position: fixed;
   top: 0;
@@ -74,14 +79,14 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0,0,0,.9);
-  display: flex;
   justify-content: center;
   align-items: center;
   color: white;
   font-size: 5rem;
+  flex-direction: column;
 }
 
-.overlayMessage button {
+.overlayScreen button {
   font-size: 3rem;
   background-color: white;
   border: 1px solid black;
@@ -89,12 +94,17 @@
   cursor: pointer;
 }
 
-.overlayMessage button:hover {
+.overlayMessage {
+  color: white;
+}
+
+
+button:hover {
   background-color: black;
   color: white;
   border-color: black;
 } 
 
-.overlayMessage.show {
+.overlayScreen.show {
   display: flex;
 }
