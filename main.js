@@ -1,9 +1,15 @@
-page = document.getElementById('page');
-gridWrapper = document.getElementById('gridWrapper');
-let box = [];
+const page = document.getElementById('page');
+const gridWrapper = document.getElementById('gridWrapper');
+const title = document.getElementById('title');
+const restart = document.getElementById('restartButton');
+
+restart.onclick = restartGame;
 
 let gameGrid = ['','','','','','','','',''];
 let playerTurn = 'X';
+
+title.textContent = `It is X's Turn`;
+let box = [];
 
 (function createGrid() {
   for (i=0; i < 9; i++){
@@ -29,8 +35,8 @@ function changeColor(){
   }
   
   gameGrid[value] = this.innerText;
-  checkWin(gameGrid);
-  changePlayer();
+  let winner = checkWin(gameGrid);
+  changePlayer(winner);
 }
 
 function checkWin(gameGrid){
@@ -69,18 +75,27 @@ function checkWin(gameGrid){
   
   let spaceIndex = gameGrid.indexOf('');
   if (winner==true){
-    alert(`${playerTurn} has won!`);
-    console
+    title.textContent = `${playerTurn} has won!`;
+    console.log(`${playerTurn} has won!`);
+    for (i=0; i < 9; i++){
+      box[i].style.cursor = 'not-allowed';
+      box[i].removeEventListener('click', changeColor);
+    }
   }
   if (spaceIndex == -1 && winner != true){
-     return alertTie();
-   }
+    alertTie();
+    winner = true;
+  }
   console.log(gameGrid);
-  
+  return winner;
 }
 
 function alertTie(){
-  alert('its a tie');
+  title.textContent = `It's a Tie!`;
+  for (i=0; i < 9; i++){
+    box[i].style.cursor = 'not-allowed';
+    box[i].removeEventListener('click', changeColor);
+  }
 }
 
 function Game(){
@@ -89,15 +104,28 @@ function Game(){
  
 }
 
-function changePlayer(){
+function changePlayer(winner){
+  if (winner) {
+    return 
+  }
   if (playerTurn == 'X'){
     playerTurn = 'O';
+
   }
   else{
     playerTurn = 'X';
   }
+  title.textContent = `It is ${playerTurn}'s turn`;
 }
 
-function computerAI(gameGrid){
-  
+function restartGame(){
+  gameGrid = ['','','','','','','','',''];
+  playerTurn = 'X';
+  title.textContent = "It is X's Turn";
+  for (i=0; i < 9; i++){
+    box[i].innerText = '';
+    box[i].style.backgroundColor = '#EF780E';
+    box[i].style.cursor = 'pointer';
+    box[i].addEventListener('click', changeColor);
+  }
 }
